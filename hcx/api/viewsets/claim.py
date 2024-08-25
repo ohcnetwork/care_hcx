@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
 from hcx.api.serializers.claim import ClaimSerializer
-from hcx.models.base import USE_CHOICES
+from hcx.models.base import USE_CHOICES, OUTCOME_CHOICES
 from hcx.models.claim import Claim
 
 
@@ -19,6 +19,7 @@ class PolicyFilter(filters.FilterSet):
     consultation = filters.UUIDFilter(field_name="consultation__external_id")
     policy = filters.UUIDFilter(field_name="policy__external_id")
     use = filters.ChoiceFilter(field_name="use", choices=USE_CHOICES)
+    outcome = filters.ChoiceFilter(field_name="outcome", choices=OUTCOME_CHOICES)
 
 
 class ClaimViewSet(
