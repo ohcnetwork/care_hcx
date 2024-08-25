@@ -3,7 +3,7 @@ import json
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from hcx.models.claim import Claim
@@ -12,11 +12,12 @@ from hcx.models.policy import Policy
 from hcx.utils.fhir import Fhir
 from hcx.utils.hcx import Hcx
 from care.utils.notification_handler import send_webpush
+from hcx.authentication import HCXAuthentication
 
 
 class CoverageElibilityOnCheckView(GenericAPIView):
-    permission_classes = (AllowAny,)
-    authentication_classes = []
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):
@@ -41,8 +42,8 @@ class CoverageElibilityOnCheckView(GenericAPIView):
 
 
 class PreAuthOnSubmitView(GenericAPIView):
-    permission_classes = (AllowAny,)
-    authentication_classes = []
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):
@@ -68,8 +69,8 @@ class PreAuthOnSubmitView(GenericAPIView):
 
 
 class ClaimOnSubmitView(GenericAPIView):
-    permission_classes = (AllowAny,)
-    authentication_classes = []
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):
@@ -95,8 +96,8 @@ class ClaimOnSubmitView(GenericAPIView):
 
 
 class CommunicationRequestView(GenericAPIView):
-    permission_classes = (AllowAny,)
-    authentication_classes = []
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):

@@ -105,6 +105,7 @@ REQUIRED_SETTINGS = {
     "HCX_PASSWORD",
     "HCX_ENCRYPTION_PRIVATE_KEY_URL",
     "HCX_IG_URL",
+    "HCX_CERT_URL",
 }
 
 DEFAULTS = {
@@ -115,6 +116,7 @@ DEFAULTS = {
     "HCX_PASSWORD": "",
     "HCX_ENCRYPTION_PRIVATE_KEY_URL": "",
     "HCX_IG_URL": "",
+    "HCX_CERT_URL": "",
     "AUTH_USER_MODEL": "users.User"
 }
 
