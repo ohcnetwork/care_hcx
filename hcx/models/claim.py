@@ -20,7 +20,7 @@ class Claim(BaseModel):
     consultation = models.ForeignKey(PatientConsultation, on_delete=models.CASCADE)
     policy = models.ForeignKey(
         Policy, on_delete=models.CASCADE
-    )  # cascade - check it with Gigin
+    )
 
     items = JSONField(default=list, validators=[JSONFieldSchemaValidator(ITEMS)])
     total_claim_amount = models.FloatField(blank=True, null=True)
