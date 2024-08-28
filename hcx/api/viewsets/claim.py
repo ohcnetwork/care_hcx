@@ -49,4 +49,4 @@ class ClaimViewSet(
     ]
 
     def get_queryset(self):
-        get_claims(self.request.user, self.queryset)
+        return get_claims(self.request.user, self.queryset)
