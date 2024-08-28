@@ -297,11 +297,11 @@ class HcxGatewayViewSet(GenericViewSet):
             [{"type": "Claim", "id": communication["claim_object"]["id"]}],
         )
 
-        if not Fhir().validate_fhir_remote(communication_fhir_bundle.json())["valid"]:
-            return Response(
-                Fhir().validate_fhir_remote(communication_fhir_bundle.json())["issues"],
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        # if not Fhir().validate_fhir_remote(communication_fhir_bundle.json())["valid"]:
+        #     return Response(
+        #         Fhir().validate_fhir_remote(communication_fhir_bundle.json())["issues"],
+        #         status=status.HTTP_400_BAD_REQUEST,
+        #     )
 
         response = Hcx().generateOutgoingHcxCall(
             fhirPayload=json.loads(communication_fhir_bundle.json()),
