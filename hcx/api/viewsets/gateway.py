@@ -84,9 +84,9 @@ class HcxGatewayViewSet(GenericViewSet):
                 policy["id"],
                 policy["id"],
                 policy["patient_object"]["phone_number"],
-                Status[policy["status"]].value,
-                Priority[policy["priority"]].value,
-                Purpose[policy["purpose"]].value,
+                Status.get(policy["status"]).value,
+                Priority.get(policy["priority"]).value,
+                Purpose.get(policy["purpose"]).value,
             )
         )
 
@@ -191,7 +191,7 @@ class HcxGatewayViewSet(GenericViewSet):
             )
         )
 
-        if Use[claim["use"]].value == Use.CLAIM.value:
+        if Use.get(claim["use"]).value == Use.CLAIM.value:
             discharge_summary_url = generate_discharge_report_signed_url(
                 PatientRegistration.objects.get(
                     external_id=claim["policy_object"]["patient_object"]["id"]
@@ -232,10 +232,10 @@ class HcxGatewayViewSet(GenericViewSet):
             claim["id"],
             claim["items"],
             claim["policy_object"]["patient_object"]["phone_number"],
-            Use[claim["use"]].value,
-            Status[claim["status"]].value,
-            ClaimType[claim["type"]].value,
-            Priority[claim["priority"]].value,
+            Use.get(claim["use"]).value,
+            Status.get(claim["status"]).value,
+            ClaimType.get(claim["type"]).value,
+            Priority.get(claim["priority"]).value,
             supporting_info=docs,
             related_claims=related_claims,
             procedures=procedures,
@@ -252,7 +252,7 @@ class HcxGatewayViewSet(GenericViewSet):
             fhirPayload=json.loads(claim_fhir_bundle.json()),
             operation=(
                 HcxOperations.CLAIM_SUBMIT
-                if Use[claim["use"]].value == Use.CLAIM.value
+                if Use.get(claim["use"]).value == Use.CLAIM.value
                 else HcxOperations.PRE_AUTH_SUBMIT
             ),
             recipientCode=claim["policy_object"]["insurer_id"],
