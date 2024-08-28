@@ -43,4 +43,4 @@ class CommunicationViewSet(
     ]
 
     def get_queryset(self):
-        return get_communications(self.request.user)
+        return get_communications(self.request.user, self.queryset)

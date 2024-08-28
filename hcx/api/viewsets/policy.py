@@ -12,6 +12,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from hcx.api.serializers.policy import PolicySerializer
 from hcx.models.policy import Policy
+from hcx.utils.queryset.policy import get_policies
 
 
 class PolicyFilter(filters.FilterSet):
@@ -42,3 +43,6 @@ class PolicyViewSet(
         "created_date",
         "modified_date",
     ]
+
+    def get_queryset(self):
+        return get_policies(self.request.user, self.queryset)

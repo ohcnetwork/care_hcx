@@ -27,11 +27,7 @@ from hcx.api.serializers.gateway import (
 )
 from hcx.api.serializers.policy import PolicySerializer
 from hcx.models.base import (
-    REVERSE_CLAIM_TYPE_CHOICES,
-    REVERSE_PRIORITY_CHOICES,
-    REVERSE_PURPOSE_CHOICES,
-    REVERSE_STATUS_CHOICES,
-    REVERSE_USE_CHOICES,
+    ClaimType, Priority, Purpose, Status, Use
 )
 from hcx.models.claim import Claim
 from hcx.models.communication import Communication
@@ -42,6 +38,7 @@ from hcx.utils.hcx import Hcx
 from hcx.utils.hcx.operations import HcxOperations
 from hcx.utils.queryset.communication import get_communications
 from care.utils.static_data.helpers import query_builder
+from care.facility.models.patient import PatientRegistration
 
 
 class HcxGatewayViewSet(GenericViewSet):
@@ -87,9 +84,9 @@ class HcxGatewayViewSet(GenericViewSet):
                 policy["id"],
                 policy["id"],
                 policy["patient_object"]["phone_number"],
-                REVERSE_STATUS_CHOICES[policy["status"]],
-                REVERSE_PRIORITY_CHOICES[policy["priority"]],
-                REVERSE_PURPOSE_CHOICES[policy["purpose"]],
+                Status[policy["status"]].value,
+                Priority[policy["priority"]].value,
+                Purpose[policy["purpose"]].value,
             )
         )
 
@@ -194,9 +191,11 @@ class HcxGatewayViewSet(GenericViewSet):
             )
         )
 
-        if REVERSE_USE_CHOICES[claim["use"]] == "claim":
+        if Use[claim["use"]].value == Use.CLAIM.value:
             discharge_summary_url = generate_discharge_report_signed_url(
-                claim["policy_object"]["patient_object"]["id"]
+                PatientRegistration.objects.get(
+                    external_id=claim["policy_object"]["patient_object"]["id"]
+                ).id,
             )
             docs.append(
                 {
@@ -233,10 +232,10 @@ class HcxGatewayViewSet(GenericViewSet):
             claim["id"],
             claim["items"],
             claim["policy_object"]["patient_object"]["phone_number"],
-            REVERSE_USE_CHOICES[claim["use"]],
-            REVERSE_STATUS_CHOICES[claim["status"]],
-            REVERSE_CLAIM_TYPE_CHOICES[claim["type"]],
-            REVERSE_PRIORITY_CHOICES[claim["priority"]],
+            Use[claim["use"]].value,
+            Status[claim["status"]].value,
+            ClaimType[claim["type"]].value,
+            Priority[claim["priority"]].value,
             supporting_info=docs,
             related_claims=related_claims,
             procedures=procedures,
@@ -253,7 +252,7 @@ class HcxGatewayViewSet(GenericViewSet):
             fhirPayload=json.loads(claim_fhir_bundle.json()),
             operation=(
                 HcxOperations.CLAIM_SUBMIT
-                if REVERSE_USE_CHOICES[claim["use"]] == "claim"
+                if Use[claim["use"]].value == Use.CLAIM.value
                 else HcxOperations.PRE_AUTH_SUBMIT
             ),
             recipientCode=claim["policy_object"]["insurer_id"],

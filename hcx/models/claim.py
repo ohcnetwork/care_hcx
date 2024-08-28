@@ -3,11 +3,7 @@ from django.db.models import JSONField
 
 from care.facility.models.patient import PatientConsultation
 from hcx.models.base import (
-    CLAIM_TYPE_CHOICES,
-    OUTCOME_CHOICES,
-    PRIORITY_CHOICES,
-    STATUS_CHOICES,
-    USE_CHOICES,
+    ClaimType, Outcome, Priority, Status, Use
 )
 from hcx.models.json_schema.claim import ITEMS
 from hcx.models.policy import Policy
@@ -27,20 +23,20 @@ class Claim(BaseModel):
     total_amount_approved = models.FloatField(blank=True, null=True)
 
     use = models.CharField(
-        choices=USE_CHOICES, max_length=20, default=None, blank=True, null=True
+        choices=Use.choices, max_length=20, default=Use.CLAIM.value
     )
     status = models.CharField(
-        choices=STATUS_CHOICES, max_length=20, default=None, blank=True, null=True
+        choices=Status.choices, max_length=20, default=Status.ACTIVE.value
     )
     priority = models.CharField(
-        choices=PRIORITY_CHOICES, max_length=20, default="normal"
+        choices=Priority.choices, max_length=20, default=Priority.NORMAL.value
     )
     type = models.CharField(
-        choices=CLAIM_TYPE_CHOICES, max_length=20, default=None, blank=True, null=True
+        choices=ClaimType.choices, max_length=20, default=ClaimType.INSTITUTIONAL.value
     )
 
     outcome = models.CharField(
-        choices=OUTCOME_CHOICES, max_length=20, default=None, blank=True, null=True
+        choices=Outcome.choices, max_length=20, default=None, blank=True, null=True
     )
     error_text = models.TextField(null=True, blank=True)
 
