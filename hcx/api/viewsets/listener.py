@@ -3,7 +3,7 @@ import json
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from hcx.models.claim import Claim
@@ -16,7 +16,7 @@ from hcx.authentication import HCXAuthentication
 
 
 class CoverageElibilityOnCheckView(GenericAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,) # Intentionally setting to AllowAny until Auth cert problem is resolved
     authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
@@ -42,7 +42,7 @@ class CoverageElibilityOnCheckView(GenericAPIView):
 
 
 class PreAuthOnSubmitView(GenericAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
@@ -69,7 +69,7 @@ class PreAuthOnSubmitView(GenericAPIView):
 
 
 class ClaimOnSubmitView(GenericAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
@@ -96,7 +96,7 @@ class ClaimOnSubmitView(GenericAPIView):
 
 
 class CommunicationRequestView(GenericAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     authentication_classes = [HCXAuthentication]
 
     @extend_schema(tags=["hcx"])
