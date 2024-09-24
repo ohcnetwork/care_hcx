@@ -4,7 +4,7 @@ from hcx.api.serializers.claim import ClaimSerializer
 from hcx.models.claim import Claim
 from hcx.models.communication import Communication
 from care.users.api.serializers.user import UserBaseMinimumSerializer
-from care.utils.serializer.external_id_field import ExternalIdSerializerField
+from care.utils.serializers.fields import ExternalIdSerializerField
 
 TIMESTAMP_FIELDS = (
     "created_date",

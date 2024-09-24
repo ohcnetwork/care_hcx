@@ -5,7 +5,7 @@ from rest_framework.serializers import Serializer, UUIDField
 from hcx.models.claim import Claim
 from hcx.models.communication import Communication
 from hcx.models.policy import Policy
-from care.utils.serializer.external_id_field import ExternalIdSerializerField
+from care.utils.serializers.fields import ExternalIdSerializerField
 
 
 class CheckEligibilitySerializer(Serializer):
