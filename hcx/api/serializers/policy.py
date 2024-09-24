@@ -2,13 +2,10 @@ from rest_framework.serializers import CharField, ModelSerializer, UUIDField
 
 from care.facility.api.serializers.patient import PatientDetailSerializer
 from care.facility.models.patient import PatientRegistration
-from hcx.models.policy import Policy
-from hcx.models.base import (
-    Outcome, Priority, Status, Purpose
-)
-from care.utils.serializer.external_id_field import ExternalIdSerializerField
 from care.users.api.serializers.user import UserBaseMinimumSerializer
-from config.serializers import ChoiceField
+from care.utils.serializers.fields import ExternalIdSerializerField, ChoiceField
+from hcx.models.base import Outcome, Priority, Purpose, Status
+from hcx.models.policy import Policy
 
 TIMESTAMP_FIELDS = (
     "created_date",
