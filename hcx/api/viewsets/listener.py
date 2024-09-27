@@ -12,12 +12,12 @@ from hcx.models.policy import Policy
 from hcx.utils.fhir import Fhir
 from hcx.utils.hcx import Hcx
 from care.utils.notification_handler import send_webpush
-from hcx.authentication import HCXAuthentication
+# from hcx.authentication import HCXAuthentication
 
 
 class CoverageElibilityOnCheckView(GenericAPIView):
     permission_classes = (AllowAny,) # Intentionally setting to AllowAny until Auth cert problem is resolved
-    authentication_classes = [HCXAuthentication]
+    authentication_classes = []
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):
@@ -43,7 +43,7 @@ class CoverageElibilityOnCheckView(GenericAPIView):
 
 class PreAuthOnSubmitView(GenericAPIView):
     permission_classes = (AllowAny,)
-    authentication_classes = [HCXAuthentication]
+    authentication_classes = []
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):
@@ -70,7 +70,7 @@ class PreAuthOnSubmitView(GenericAPIView):
 
 class ClaimOnSubmitView(GenericAPIView):
     permission_classes = (AllowAny,)
-    authentication_classes = [HCXAuthentication]
+    authentication_classes = []
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):
@@ -97,7 +97,7 @@ class ClaimOnSubmitView(GenericAPIView):
 
 class CommunicationRequestView(GenericAPIView):
     permission_classes = (AllowAny,)
-    authentication_classes = [HCXAuthentication]
+    authentication_classes = []
 
     @extend_schema(tags=["hcx"])
     def post(self, request, *args, **kwargs):
